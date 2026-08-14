@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nos produits — COMFY UNIFORMS</title>
+<meta name="description" content="Catalogue complet : tuniques radiologie, blouses médicales, ensembles homme et femme, accessoires. Livraison partout en Algérie.">
+<meta name="theme-color" content="#0A1F3C">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <img src="assets/img/logo.png" alt="COMFY UNIFORMS" onerror="this.style.display='none'">
+      <span class="logo-text">COMFY UNIFORMS</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html#categories" data-ar="الفئات">Catégories</a>
+      <a href="produits.html" data-ar="المنتجات">Produits</a>
+      <a href="index.html#pourquoi" data-ar="لماذا نحن">Pourquoi nous</a>
+      <a href="index.html#faq" data-ar="الأسئلة">FAQ</a>
+      <a href="index.html#contact" data-ar="اتصل بنا">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button type="button" data-lang-btn="fr">Français</button>
+        <button type="button" data-lang-btn="ar">العربية</button>
+      </div>
+      <a class="cart-link" href="panier.html">
+        <span data-ar="السلة">Panier</span>
+        <span class="cart-count">0</span>
+      </a>
+    </div>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" data-ar-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="breadcrumb">
+    <a href="index.html" data-ar="الرئيسية">Accueil</a>
+    <span>/</span>
+    <span data-ar="المنتجات">Produits</span>
+  </nav>
+
+  <div class="section-head" style="padding-top:24px; margin-bottom:28px;">
+    <div class="eyebrow" data-ar="الكتالوج">Catalogue</div>
+    <h2 id="pageTitle" data-ar="كل المنتجات">Tous nos produits</h2>
+    <p data-ar="اختر المقاس واللون على البطاقة ثم أضف إلى السلة مباشرة.">Choisissez la taille et la couleur sur la carte, puis ajoutez au panier directement.</p>
+  </div>
+
+  <div class="filters">
+    <div class="chips" id="catChips"></div>
+    <div class="search-box">
+      <input class="field" type="search" id="searchInput" placeholder="Rechercher un modèle…" data-ar-placeholder="ابحث عن موديل…" aria-label="Rechercher" data-ar-label="بحث">
+    </div>
+    <label class="form-label" style="min-width:190px;">
+      <select class="field" id="sortSelect" aria-label="Trier" data-ar-label="ترتيب">
+        <option value="default" data-ar="الترتيب: مقترح">Tri : suggéré</option>
+        <option value="price-asc" data-ar="السعر: من الأقل">Prix croissant</option>
+        <option value="price-desc" data-ar="السعر: من الأعلى">Prix décroissant</option>
+        <option value="rating" data-ar="الأعلى تقييماً">Mieux notés</option>
+      </select>
+    </label>
+    <div class="results-count" id="resultsCount"></div>
+  </div>
+
+  <div class="product-grid cols-4" id="productGrid" style="padding-bottom:24px;"></div>
+</main>
+
+<section class="section wrap">
+  <div class="cta-band">
+    <div>
+      <h2 data-ar="طلبات الجملة للعيادات والمستشفيات">Commandes en gros pour cliniques et hôpitaux</h2>
+      <p data-ar="ابتداءً من 30 قطعة: سعر خاص وتطريز الشعار مجاناً.">À partir de 30 pièces : tarif dégressif et broderie du logo offerte.</p>
+    </div>
+    <a class="btn" data-wa="Bonjour, je souhaite un devis pour une commande en gros." href="#" target="_blank" rel="noopener" data-ar="اطلب عرض سعر">Demander un devis</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">
+        <span class="mark"></span>
+        <b>COMFY UNIFORMS</b>
+      </div>
+      <p data-ar="ملابس طبية وملابس أشعة فاخرة، مصممة ومُوصَّلة إلى كامل التراب الجزائري.">Tenues médicales et radiologiques premium, conçues et livrées partout en Algérie.</p>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="روابط سريعة">Liens rapides</div>
+      <a href="index.html#categories" data-ar="الفئات">Catégories</a>
+      <a href="produits.html" data-ar="المنتجات">Produits</a>
+      <a href="panier.html" data-ar="السلة">Panier</a>
+      <a href="index.html#faq" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="index.html#contact" data-ar="اتصل بنا">Contact</a>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="معلومات">Informations</div>
+      <a href="index.html#faq" data-ar="التوصيل والإرجاع">Livraison &amp; retours</a>
+      <a href="index.html#faq" data-ar="دليل المقاسات">Guide des tailles</a>
+      <a href="index.html#contact" data-ar="طلبات الجملة">Commandes en gros</a>
+      <a href="index.html#contact" data-ar="التطريز المخصص">Broderie personnalisée</a>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="تابعنا">Nous suivre</div>
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a data-wa="Bonjour !" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a data-shop-phone href="#"><span data-shop-text="phoneDisplay">0773 74 73 89</span></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 COMFY UNIFORMS — <span data-ar="كل الحقوق محفوظة.">Tous droits réservés.</span></span>
+    <span data-ar="الجزائر · وهران · قسنطينة">Alger · Oran · Constantine</span>
+  </div>
+</footer>
+
+<a class="fab-wa" data-wa="Bonjour !" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+</a>
+<button class="to-top" type="button" aria-label="Haut de page" data-ar-label="أعلى الصفحة">↑</button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/produits.js"></script>
+</body>
+</html>

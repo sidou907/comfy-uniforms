@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COMFY UNIFORMS — Tenues médicales premium en Algérie</title>
+<meta name="description" content="Tenues médicales et radiologiques premium pour les professionnels de santé en Algérie. Livraison dans les 58 wilayas, paiement à la livraison, commande sur WhatsApp.">
+<meta name="theme-color" content="#0A1F3C">
+<meta property="og:title" content="COMFY UNIFORMS — Tenues médicales premium en Algérie">
+<meta property="og:description" content="Blouses, tuniques radiologie et ensembles médicaux. Livraison partout en Algérie, paiement à la livraison.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- ================= EN-TÊTE ================= -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <img src="assets/img/logo.png" alt="COMFY UNIFORMS" onerror="this.style.display='none'">
+      <span class="logo-text">COMFY UNIFORMS</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html#categories" data-ar="الفئات">Catégories</a>
+      <a href="produits.html" data-ar="المنتجات">Produits</a>
+      <a href="index.html#pourquoi" data-ar="لماذا نحن">Pourquoi nous</a>
+      <a href="index.html#faq" data-ar="الأسئلة">FAQ</a>
+      <a href="index.html#contact" data-ar="اتصل بنا">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button type="button" data-lang-btn="fr">Français</button>
+        <button type="button" data-lang-btn="ar">العربية</button>
+      </div>
+      <a class="cart-link" href="panier.html">
+        <span data-ar="السلة">Panier</span>
+        <span class="cart-count">0</span>
+      </a>
+    </div>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" data-ar-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= HÉRO ================= -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div data-reveal>
+      <div class="badge-pill">
+        <span class="dot"></span>
+        <span data-ar="ملابس طبية فاخرة — الجزائر">Tenues médicales premium — Algérie</span>
+      </div>
+      <h1 data-ar="ملابس طبية أنيقة ومريحة">Des Tenues Médicales Élégantes et Confortables</h1>
+      <p class="hero-lead" data-ar="مصممة لمهنيي الصحة في الجزائر. جودة فاخرة، راحة استثنائية وتوصيل سريع.">Conçues pour les professionnels de santé en Algérie. Qualité premium, confort exceptionnel et livraison rapide.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="produits.html" data-ar="شاهد المجموعة">Voir la Collection</a>
+        <a class="btn btn-ghost" data-wa="Bonjour, je souhaite des informations sur vos tenues médicales." href="#" target="_blank" rel="noopener" data-ar="اطلب عبر واتساب">Commander sur WhatsApp</a>
+      </div>
+      <div class="hero-points">
+        <span><span class="tick">✓</span><span data-ar="التوصيل لكل الجزائر">Livraison partout en Algérie</span></span>
+        <span><span class="tick">✓</span><span data-ar="الدفع عند الاستلام">Paiement à la livraison</span></span>
+        <span><span class="tick">✓</span><span data-ar="جودة فاخرة">Qualité Premium</span></span>
+      </div>
+    </div>
+    <div class="hero-media" data-reveal>
+      <span class="media">
+        <img src="assets/img/hero.jpg" alt="Équipe soignante en tenues premium" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+        <span class="media-label" hidden>photo héro — équipe soignante en tenues premium</span>
+      </span>
+      <div class="hero-stat">
+        <b>4 200+</b>
+        <span data-ar="مهني صحي يثق بنا">soignants équipés</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATÉGORIES ================= -->
+<section class="section wrap" id="categories">
+  <div class="section-head section-head-row" data-reveal>
+    <div>
+      <div class="eyebrow" data-ar="الفئات">Catégories</div>
+      <h2 data-ar="تسوّق حسب الفئة">Explorer par catégorie</h2>
+    </div>
+    <a href="produits.html" style="font-size:15px; font-weight:600;" data-ar="عرض الكل ←">Tout voir →</a>
+  </div>
+  <div class="cat-grid" id="catGrid" data-reveal></div>
+</section>
+
+<!-- ================= BEST-SELLERS ================= -->
+<section class="section wrap" id="produits">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow" data-ar="الأكثر مبيعاً">Best-sellers</div>
+    <h2 data-ar="القطع الأكثر طلباً">Les pièces les plus commandées</h2>
+    <p data-ar="اختر المقاس واللون ثم أضف مباشرة إلى السلة.">Choisissez la taille et la couleur, puis ajoutez directement au panier.</p>
+  </div>
+  <div class="product-grid" id="featuredGrid" data-reveal></div>
+  <div style="text-align:center; margin-top:36px;" data-reveal>
+    <a class="btn btn-ghost" href="produits.html" data-ar="عرض كل المنتجات">Voir tous les produits</a>
+  </div>
+</section>
+
+<!-- ================= POURQUOI NOUS ================= -->
+<section class="section wrap" id="pourquoi">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow" data-ar="لماذا نحن">Pourquoi nous</div>
+    <h2 data-ar="جودة تُحسّ من أول ارتداء">Une qualité qui se sent dès le premier port</h2>
+  </div>
+  <div class="feature-grid" data-reveal>
+    <div class="feature">
+      <div class="ico">◆</div>
+      <h3 data-ar="قماش فاخر">Tissu Premium</h3>
+      <p data-ar="بوليستر-قطن عالي الكثافة، يسمح بالتهوية ومقاوم للتجعد.">Polycoton haute densité, respirant et anti-froissement.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">●</div>
+      <h3 data-ar="راحة طوال اليوم">Confort toute la journée</h3>
+      <p data-ar="قصّات مُجرَّبة في مناوبات مدتها 12 ساعة.">Coupes testées sur des gardes de 12 heures.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">▲</div>
+      <h3 data-ar="تصميم عصري">Design moderne</h3>
+      <p data-ar="خطوط أنيقة، ياقات مهيكلة وتشطيبات نظيفة.">Lignes épurées, cols structurés, finitions nettes.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">◈</div>
+      <h3 data-ar="مقاوم للغسيل">Résistant aux lavages</h3>
+      <p data-ar="يحافظ على لونه وشكله بعد 60 غسلة على 60 °م.">Couleur et forme tenues après 60 lavages à 60 °C.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">➜</div>
+      <h3 data-ar="توصيل سريع">Livraison rapide</h3>
+      <p data-ar="48 ساعة في الجزائر العاصمة، من 2 إلى 5 أيام في الـ58 ولاية.">48 h à Alger, 2 à 5 jours dans les 58 wilayas.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">✆</div>
+      <h3 data-ar="خدمة زبائن سريعة">Service client réactif</h3>
+      <p data-ar="رد على واتساب في أقل من 15 دقيقة، 7 أيام على 7.">Réponse WhatsApp en moins de 15 minutes, 7j/7.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TÉMOIGNAGES ================= -->
+<section class="section wrap">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow" data-ar="آراء الزبائن">Témoignages</div>
+    <h2 data-ar="ما يقوله مهنيو الصحة">Ce que disent les soignants</h2>
+  </div>
+  <div class="quote-grid" data-reveal>
+    <figure class="quote">
+      <div class="stars">★★★★★</div>
+      <blockquote data-ar="«ألبس قميص الأشعة ستة أيام في الأسبوع: يحافظ على شكله ولونه بعد عشرات الغسلات.»">« Je porte la tunique radiologie six jours sur sept : elle garde sa forme et sa couleur après des dizaines de lavages. »</blockquote>
+      <figcaption>
+        <span class="avatar"></span>
+        <span>
+          <span class="who">Amine B.</span>
+          <span class="role" data-ar="تقني أشعة، مستشفى مصطفى الجامعي">Manipulateur radio, CHU Mustapha</span>
+        </span>
+      </figcaption>
+    </figure>
+    <figure class="quote">
+      <div class="stars">★★★★★</div>
+      <blockquote data-ar="«طلبت 40 طقماً للعيادة: وصلت في ثلاثة أيام، المقاسات مضبوطة، ربح حقيقي في الوقت.»">« Commande de 40 ensembles pour la clinique : livrés en trois jours, tailles parfaites, un vrai gain de temps. »</blockquote>
+      <figcaption>
+        <span class="avatar"></span>
+        <span>
+          <span class="who">Dr. Yasmine K.</span>
+          <span class="role" data-ar="عيادة الأزهر، وهران">Clinique El Azhar, Oran</span>
+        </span>
+      </figcaption>
+    </figure>
+    <figure class="quote">
+      <div class="stars">★★★★☆</div>
+      <blockquote data-ar="«أخيراً قصّة مصممة للنساء. مريحة في مناوبة الليل وأنيقة في الفحص.»">« Enfin une coupe pensée pour les femmes. Confortable en garde de nuit et élégante en consultation. »</blockquote>
+      <figcaption>
+        <span class="avatar"></span>
+        <span>
+          <span class="who">Sarah M.</span>
+          <span class="role" data-ar="ممرضة، قسنطينة">Infirmière, Constantine</span>
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq" style="max-width:900px; margin:0 auto; padding-inline:24px;">
+  <div class="section-head" style="text-align:center;" data-reveal>
+    <div class="eyebrow" data-ar="الأسئلة الشائعة">FAQ</div>
+    <h2 data-ar="أسئلة متكررة">Questions fréquentes</h2>
+  </div>
+  <div class="faq-list" data-reveal>
+    <details class="faq-item">
+      <summary><span data-ar="كم يستغرق التوصيل؟">Quels sont les délais de livraison ?</span><span class="chev">+</span></summary>
+      <p data-ar="48 ساعة للجزائر العاصمة وضواحيها، ومن 2 إلى 5 أيام عمل لباقي الولايات عبر شركائنا Yalidine وZR Express.">48 h pour Alger et sa périphérie, 2 à 5 jours ouvrables pour les autres wilayas via nos partenaires Yalidine et ZR Express.</p>
+    </details>
+    <details class="faq-item">
+      <summary><span data-ar="ما هي طرق الدفع؟">Quels moyens de paiement acceptez-vous ?</span><span class="chev">+</span></summary>
+      <p data-ar="الدفع عند الاستلام في كامل التراب الوطني، بطاقة CIB / الذهبية عبر الإنترنت، وتحويل بنكي للطلبات المؤسساتية.">Paiement à la livraison partout en Algérie, CIB / Edahabia en ligne, et virement bancaire pour les commandes institutionnelles.</p>
+    </details>
+    <details class="faq-item">
+      <summary><span data-ar="هل يمكن استبدال المنتج؟">Puis-je échanger un article ?</span><span class="chev">+</span></summary>
+      <p data-ar="استبدال مجاني خلال 14 يوماً إذا لم تُلبس القطعة أو تُغسل، مع الحفاظ على البطاقات.">Échange gratuit sous 14 jours si l'article n'a pas été porté ni lavé, étiquettes conservées.</p>
+    </details>
+    <details class="faq-item">
+      <summary><span data-ar="كيف أختار مقاسي؟">Comment choisir ma taille ?</span><span class="chev">+</span></summary>
+      <p data-ar="كل قطعنا متوفرة من XS إلى XXL. دليل المقاسات مرفق بكل بطاقة منتج؛ وعند الشك يرشدك فريقنا عبر واتساب.">Toutes nos pièces existent du XS au XXL. Le guide des tailles est joint à chaque fiche produit ; en cas de doute, notre équipe vous conseille sur WhatsApp.</p>
+    </details>
+    <details class="faq-item">
+      <summary><span data-ar="ما هي مدة الطلبات الكبيرة؟">Quels délais pour une commande en gros ?</span><span class="chev">+</span></summary>
+      <p data-ar="احسب من 7 إلى 10 أيام للطلبات التي تفوق 30 قطعة، مع تطريز شعار المؤسسة.">Comptez 7 à 10 jours pour les commandes de plus de 30 pièces, broderie du logo de l'établissement incluse.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ================= BANDEAU CTA ================= -->
+<section class="section wrap">
+  <div class="cta-band" data-reveal>
+    <div>
+      <h2 data-ar="جاهز لتحسين زيّك المهني؟">Prêt à améliorer votre tenue professionnelle ?</h2>
+      <p data-ar="أرسل مقاسك عبر واتساب وسنجهّز طلبك اليوم.">Envoyez vos tailles sur WhatsApp, nous préparons votre commande le jour même.</p>
+    </div>
+    <a class="btn" data-wa="Bonjour, je souhaite passer une commande." href="#" target="_blank" rel="noopener" data-ar="اطلب الآن">Commander Maintenant</a>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section wrap" id="contact">
+  <div class="contact-grid" data-reveal>
+    <div>
+      <div class="eyebrow" data-ar="اتصل بنا">Contact</div>
+      <h2 style="font-size:40px; font-weight:700; margin-bottom:18px;" data-ar="لنتحدث عن طلبك">Parlons de votre commande</h2>
+      <p style="color:var(--muted); font-size:16px; line-height:1.65; max-width:420px; margin-bottom:30px;" data-ar="أفراد، عيادات ومستشفيات: عروض أسعار مخصصة وتطريز حسب الطلب متوفران.">Particuliers, cliniques et hôpitaux : devis sur mesure et broderie personnalisée disponibles.</p>
+
+      <div class="contact-list">
+        <a class="contact-item wa" data-wa="Bonjour !" href="#" target="_blank" rel="noopener">
+          <span class="ico">W</span>
+          <span>
+            <b>WhatsApp</b>
+            <span data-shop-text="phoneDisplay">0773 74 73 89</span>
+          </span>
+        </a>
+        <a class="contact-item" data-shop-phone href="#">
+          <span class="ico">✆</span>
+          <span>
+            <b data-ar="الهاتف">Téléphone</b>
+            <span><span data-shop-text="phoneDisplay">0773 74 73 89</span> <span data-ar="— من 9 صباحاً إلى 6 مساءً">— 9h à 18h</span></span>
+          </span>
+        </a>
+        <a class="contact-item" data-shop-email href="#">
+          <span class="ico">@</span>
+          <span>
+            <b data-ar="البريد الإلكتروني">Email</b>
+            <span data-shop-text="email">contact@comfyuniforms.dz</span>
+          </span>
+        </a>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-bottom:26px;">
+        <a class="btn btn-ghost btn-sm" href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+        <a class="btn btn-ghost btn-sm" href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      </div>
+
+      <span class="media" style="height:200px; border-radius:20px;">
+        <img src="assets/img/showroom.jpg" alt="Showroom Alger centre" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+        <span class="media-label" hidden>Google Maps — showroom Alger centre</span>
+      </span>
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="form-grid-2">
+        <label class="form-label">
+          <span data-ar="الاسم الكامل">Nom complet</span>
+          <input class="field" type="text" name="name" placeholder="Amina Belkacem" data-ar-placeholder="أمينة بلقاسم" required>
+        </label>
+        <label class="form-label">
+          <span data-ar="الهاتف">Téléphone</span>
+          <input class="field" type="tel" name="phone" placeholder="0770 00 00 00" data-ar-placeholder="0770 00 00 00" required>
+        </label>
+      </div>
+      <label class="form-label">
+        <span data-ar="البريد الإلكتروني (اختياري)">Email (facultatif)</span>
+        <input class="field" type="email" name="email" placeholder="amina@clinique.dz" data-ar-placeholder="amina@clinique.dz">
+      </label>
+      <label class="form-label">
+        <span data-ar="نوع الطلب">Type de commande</span>
+        <select class="field" name="type">
+          <option data-ar="طلب فردي">Commande individuelle</option>
+          <option data-ar="عيادة / مستشفى (بالجملة)">Clinique / Hôpital (gros)</option>
+          <option data-ar="طالب طب">Étudiant en médecine</option>
+        </select>
+      </label>
+      <label class="form-label">
+        <span data-ar="رسالتك">Message</span>
+        <textarea class="field" name="message" rows="4" placeholder="Modèles, tailles et quantités souhaitées…" data-ar-placeholder="الموديلات، المقاسات والكميات المطلوبة…"></textarea>
+      </label>
+      <button class="btn btn-primary btn-block" type="submit" data-ar="إرسال عبر واتساب">Envoyer via WhatsApp</button>
+      <p style="font-size:12.5px; color:var(--muted-2); text-align:center;" data-ar="سيُفتح واتساب برسالتك جاهزة — تبقى فقط الضغط على إرسال.">WhatsApp s'ouvrira avec votre message prêt — il ne reste qu'à envoyer.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ================= PIED DE PAGE ================= -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">
+        <span class="mark"></span>
+        <b>COMFY UNIFORMS</b>
+      </div>
+      <p data-ar="ملابس طبية وملابس أشعة فاخرة، مصممة ومُوصَّلة إلى كامل التراب الجزائري.">Tenues médicales et radiologiques premium, conçues et livrées partout en Algérie.</p>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="روابط سريعة">Liens rapides</div>
+      <a href="index.html#categories" data-ar="الفئات">Catégories</a>
+      <a href="produits.html" data-ar="المنتجات">Produits</a>
+      <a href="panier.html" data-ar="السلة">Panier</a>
+      <a href="index.html#faq" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="index.html#contact" data-ar="اتصل بنا">Contact</a>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="معلومات">Informations</div>
+      <a href="index.html#faq" data-ar="التوصيل والإرجاع">Livraison &amp; retours</a>
+      <a href="index.html#faq" data-ar="دليل المقاسات">Guide des tailles</a>
+      <a href="index.html#contact" data-ar="طلبات الجملة">Commandes en gros</a>
+      <a href="index.html#contact" data-ar="التطريز المخصص">Broderie personnalisée</a>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="تابعنا">Nous suivre</div>
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a data-wa="Bonjour !" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a data-shop-phone href="#"><span data-shop-text="phoneDisplay">0773 74 73 89</span></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 COMFY UNIFORMS — <span data-ar="كل الحقوق محفوظة.">Tous droits réservés.</span></span>
+    <span data-ar="الجزائر · وهران · قسنطينة">Alger · Oran · Constantine</span>
+  </div>
+</footer>
+
+<a class="fab-wa" data-wa="Bonjour !" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+</a>
+<button class="to-top" type="button" aria-label="Haut de page" data-ar-label="أعلى الصفحة">↑</button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>

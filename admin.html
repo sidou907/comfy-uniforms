@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espace gestion — COMFY UNIFORMS</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-bar">
+  <div class="admin-bar-inner">
+    <div class="brand">
+      <img src="assets/img/logo.png" alt="" onerror="this.style.display='none'">
+      <div>
+        <b data-ar="مساحة الإدارة">Espace gestion</b>
+        <span data-ar="أضف منتجاتك ثم نزّل الملف">Ajoutez vos produits, puis téléchargez le fichier</span>
+      </div>
+    </div>
+    <div class="lang-switch">
+      <button type="button" data-lang-btn="fr">Français</button>
+      <button type="button" data-lang-btn="ar">العربية</button>
+    </div>
+    <button class="btn btn-accent btn-sm" type="button" id="btnExport" data-ar="💾 حفظ في الموقع">💾 Enregistrer dans le site</button>
+  </div>
+</div>
+
+<div class="admin-wrap">
+
+  <div class="notice">
+    <span class="ico">💡</span>
+    <span data-ar="هذه الصفحة أداة شخصية تشتغل على جهازك فقط: كل تعديل يُحفظ في المتصفح ولا يظهر على الموقع إلا بعد تنزيل ملف data.js ووضعه مكان القديم. لا داعي لرفع هذه الصفحة على الإنترنت.">Cette page est un outil personnel qui fonctionne sur votre ordinateur : vos modifications sont enregistrées dans le navigateur et n'apparaissent en ligne qu'après avoir téléchargé data.js et remplacé l'ancien. Inutile de mettre cette page en ligne.</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab is-active" type="button" data-tab="produits" data-ar="المنتجات">Produits</button>
+    <button class="tab" type="button" data-tab="boutique" data-ar="معلومات المتجر">Ma boutique</button>
+    <button class="tab" type="button" data-tab="publier" data-ar="النشر">Publier</button>
+  </div>
+
+  <!-- ============ ONGLET PRODUITS ============ -->
+  <section class="panel is-active" id="panel-produits">
+    <div class="admin-grid">
+
+      <div>
+        <div class="card">
+          <h2>
+            <span data-ar="قائمة المنتجات">Mes produits</span>
+            <button class="btn btn-primary btn-sm" type="button" id="btnNew" data-ar="+ منتج جديد">+ Nouveau</button>
+          </h2>
+          <div class="hint" id="listHint"></div>
+          <div class="plist" id="plist"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2 id="formTitle" data-ar="منتج جديد">Nouveau produit</h2>
+          <div class="hint" data-ar="الحقول المؤشّرة بـ * إجبارية. الحقول العربية اختيارية — إذا تركتها فارغة يظهر النص الفرنسي.">Les champs marqués * sont obligatoires. Les champs en arabe sont facultatifs : s'ils sont vides, le texte français s'affiche.</div>
+
+          <div id="formError" class="err" hidden></div>
+
+          <form id="pform" class="form-rows" novalidate>
+
+            <fieldset class="fieldset">
+              <legend data-ar="الأساسيات">L'essentiel</legend>
+              <div class="form-rows">
+                <div class="row-2">
+                  <label class="form-label">
+                    <span data-ar="اسم المنتج (فرنسية) *">Nom du produit (français) *</span>
+                    <input class="field" type="text" name="name" placeholder="Blouse Longue « Classique »">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="اسم المنتج (عربية)">Nom du produit (arabe)</span>
+                    <input class="field" type="text" name="name_ar" dir="rtl" placeholder="مئزر طويل «كلاسيك»">
+                  </label>
+                </div>
+                <div class="row-3">
+                  <label class="form-label">
+                    <span data-ar="الفئة *">Catégorie *</span>
+                    <select class="field" name="cat" id="catSelect"></select>
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="السعر (دج) *">Prix (DA) *</span>
+                    <input class="field" type="number" name="price" min="0" step="50" placeholder="6900">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="السعر القديم (مشطوب)">Ancien prix (barré)</span>
+                    <input class="field" type="number" name="oldPrice" min="0" step="50" placeholder="—">
+                  </label>
+                </div>
+                <div class="row-3">
+                  <label class="form-label">
+                    <span data-ar="الشارة (فرنسية)">Badge (français)</span>
+                    <input class="field" type="text" name="tag" placeholder="Nouveau">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="الشارة (عربية)">Badge (arabe)</span>
+                    <input class="field" type="text" name="tag_ar" dir="rtl" placeholder="جديد">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="المعرّف (يُنشأ تلقائياً)">Identifiant (auto)</span>
+                    <input class="field" type="text" name="id" placeholder="blouse-classique">
+                  </label>
+                </div>
+                <label class="check">
+                  <input type="checkbox" name="featured">
+                  <span data-ar="إظهاره في الصفحة الرئيسية (الأكثر مبيعاً)">Afficher sur la page d'accueil (best-sellers)</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend data-ar="الألوان">Coloris</legend>
+              <div class="hint" data-ar="اضغط على لون لإضافته أو حذفه. اللون الأول هو المعروض افتراضياً.">Cliquez sur une couleur pour l'ajouter ou la retirer. La première sélectionnée est celle affichée par défaut.</div>
+              <div class="pal" id="palette"></div>
+              <div class="custom-color">
+                <input type="color" id="ccHex" value="#0F5C50" aria-label="Couleur">
+                <label class="form-label" style="flex:1; min-width:150px;">
+                  <span data-ar="اسم اللون (فرنسية)">Nom (français)</span>
+                  <input class="field" type="text" id="ccName" placeholder="Vert olive">
+                </label>
+                <label class="form-label" style="flex:1; min-width:150px;">
+                  <span data-ar="اسم اللون (عربية)">Nom (arabe)</span>
+                  <input class="field" type="text" id="ccNameAr" dir="rtl" placeholder="أخضر زيتوني">
+                </label>
+                <button class="btn btn-ghost btn-sm" type="button" id="ccAdd" data-ar="أضف اللون">Ajouter</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend data-ar="المقاسات">Tailles</legend>
+              <div class="size-presets" id="sizePresets"></div>
+              <div class="size-presets" id="sizeChips"></div>
+              <div class="custom-color">
+                <label class="form-label" style="flex:1; min-width:180px;">
+                  <span data-ar="مقاس آخر">Autre taille</span>
+                  <input class="field" type="text" id="csName" placeholder="3XL">
+                </label>
+                <button class="btn btn-ghost btn-sm" type="button" id="csAdd" data-ar="أضف المقاس">Ajouter</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend data-ar="الصورة">Photo</legend>
+              <div class="photo-box">
+                <span class="media" id="photoPreview">
+                  <span class="media-label" data-ar="لا صورة بعد">pas encore de photo</span>
+                </span>
+                <div>
+                  <div class="row-2">
+                    <label class="form-label">
+                      <span data-ar="اختر الصورة من جهازك">Choisir la photo</span>
+                      <input class="field" type="file" id="photoFile" accept="image/*" style="height:auto; padding:9px 12px;">
+                    </label>
+                    <label class="form-label">
+                      <span data-ar="نوع الملف">Format du fichier</span>
+                      <select class="field" id="photoExt">
+                        <option value="jpg">.jpg</option>
+                        <option value="png">.png</option>
+                        <option value="webp">.webp</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="filename">
+                    <span id="photoPath">assets/img/products/…</span>
+                    <button class="icon-btn" type="button" id="copyPath" title="Copier">⧉</button>
+                  </div>
+                  <div class="hint" data-ar="انسخ صورتك إلى مجلد assets/img/products/ وأعد تسميتها بالاسم أعلاه بالضبط. بدون ذلك يظهر إطار رمادي مكان الصورة.">Copiez votre photo dans le dossier assets/img/products/ et renommez-la exactement comme ci-dessus. Sans cela, un cadre gris s'affiche à la place.</div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend data-ar="الوصف والخصائص">Description &amp; caractéristiques</legend>
+              <div class="form-rows">
+                <div class="row-2">
+                  <label class="form-label">
+                    <span data-ar="الوصف (فرنسية)">Description (français)</span>
+                    <textarea class="field" name="desc" rows="4" placeholder="Coupe droite, trois poches profondes…"></textarea>
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="الوصف (عربية)">Description (arabe)</span>
+                    <textarea class="field" name="desc_ar" rows="4" dir="rtl" placeholder="قصة مستقيمة، ثلاثة جيوب عميقة…"></textarea>
+                  </label>
+                </div>
+                <div class="row-2">
+                  <label class="form-label">
+                    <span data-ar="القماش (فرنسية)">Tissu (français)</span>
+                    <input class="field" type="text" name="fabric" placeholder="Polycoton 65/35, 190 g/m²">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="القماش (عربية)">Tissu (arabe)</span>
+                    <input class="field" type="text" name="fabric_ar" dir="rtl" placeholder="بوليستر/قطن 65/35">
+                  </label>
+                </div>
+                <div class="row-2">
+                  <label class="form-label">
+                    <span data-ar="العناية (فرنسية)">Entretien (français)</span>
+                    <input class="field" type="text" name="care" placeholder="Lavable à 60 °C">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="العناية (عربية)">Entretien (arabe)</span>
+                    <input class="field" type="text" name="care_ar" dir="rtl" placeholder="يُغسل على 60 °م">
+                  </label>
+                </div>
+                <div class="row-2">
+                  <label class="form-label">
+                    <span data-ar="التقييم (من 5)">Note (sur 5)</span>
+                    <input class="field" type="number" name="rating" min="0" max="5" step="0.1" placeholder="4.8">
+                  </label>
+                  <label class="form-label">
+                    <span data-ar="عدد التقييمات">Nombre d'avis</span>
+                    <input class="field" type="number" name="reviews" min="0" step="1" placeholder="24">
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" id="btnSave" data-ar="حفظ المنتج">Enregistrer le produit</button>
+              <button class="btn btn-ghost" type="button" id="btnCancel" data-ar="إلغاء">Annuler</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 data-ar="معاينة البطاقة كما ستظهر للزبون">Aperçu de la fiche, telle que le client la verra</h2>
+          <div class="preview-box" id="preview"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ ONGLET BOUTIQUE ============ -->
+  <section class="panel" id="panel-boutique">
+    <div class="card" style="max-width:760px;">
+      <h2 data-ar="معلومات المتجر">Coordonnées de la boutique</h2>
+      <div class="hint" data-ar="هذه المعلومات تظهر في كل صفحات الموقع وتُستعمل لإرسال الطلبات.">Ces informations apparaissent sur tout le site et servent à recevoir les commandes.</div>
+
+      <form id="sform" class="form-rows" novalidate>
+        <div class="row-2">
+          <label class="form-label">
+            <span data-ar="اسم المتجر">Nom de la boutique</span>
+            <input class="field" type="text" name="name">
+          </label>
+          <label class="form-label">
+            <span data-ar="رقم الواتساب (مثال: 0773 74 73 89)">Numéro WhatsApp (ex. 0773 74 73 89)</span>
+            <input class="field" type="tel" name="phoneDisplay">
+          </label>
+        </div>
+        <div class="hint" id="waHint"></div>
+        <div class="row-2">
+          <label class="form-label">
+            <span data-ar="البريد الإلكتروني">Email</span>
+            <input class="field" type="email" name="email">
+          </label>
+          <label class="form-label">
+            <span data-ar="صفحة فيسبوك">Page Facebook</span>
+            <input class="field" type="url" name="facebook">
+          </label>
+        </div>
+        <div class="row-2">
+          <label class="form-label">
+            <span data-ar="حساب إنستغرام">Compte Instagram</span>
+            <input class="field" type="url" name="instagram">
+          </label>
+          <label class="form-label">
+            <span data-ar="سعر التوصيل (دج)">Frais de livraison (DA)</span>
+            <input class="field" type="number" name="deliveryFee" min="0" step="50">
+          </label>
+        </div>
+        <label class="form-label" style="max-width:360px;">
+          <span data-ar="التوصيل مجاني ابتداءً من (دج) — 0 يعني أبداً">Livraison offerte à partir de (DA) — 0 = jamais</span>
+          <input class="field" type="number" name="freeDeliveryFrom" min="0" step="500">
+        </label>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit" data-ar="حفظ المعلومات">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ ONGLET PUBLIER ============ -->
+  <section class="panel" id="panel-publier">
+    <div class="card" style="max-width:820px;">
+      <h2 data-ar="نشر التعديلات على الموقع">Publier vos modifications</h2>
+      <div class="stat-row" style="margin:18px 0 24px;">
+        <div class="stat"><b id="statProducts">0</b><span data-ar="منتج">produits</span></div>
+        <div class="stat"><b id="statFeatured">0</b><span data-ar="في الصفحة الرئيسية">en page d'accueil</span></div>
+        <div class="stat"><b id="statPhotos">0</b><span data-ar="صورة ناقصة">photos manquantes</span></div>
+      </div>
+
+      <ol class="steps" id="publishSteps"></ol>
+
+      <div class="notice" style="margin:26px 0 0;">
+        <span class="ico">📸</span>
+        <span id="missingPhotos"></span>
+      </div>
+
+      <div class="form-actions" style="margin-top:22px;">
+        <button class="btn btn-accent" type="button" id="btnExport2" data-ar="💾 حفظ في الموقع">💾 Enregistrer dans le site</button>
+        <button class="btn btn-ghost" type="button" id="btnDownload" data-ar="⬇ تنزيل الملف">⬇ Télécharger le fichier</button>
+        <button class="btn btn-ghost" type="button" id="btnCopy" data-ar="📋 نسخ المحتوى">📋 Copier le contenu</button>
+      </div>
+
+      <div class="notice" style="margin-top:22px;">
+        <span class="ico">🔧</span>
+        <span data-ar="«حفظ في الموقع» هو الأسهل: تختار ملف data.js الموجود ويُستبدل مباشرة. إذا لم يشتغل عند صديقك، «تنزيل الملف» يعمل دائماً — لكن كروم يعرض تحذيراً على ملفات .js، يكفي الضغط على «Conserver». والحل الأخير «نسخ المحتوى»: يفتح data.js بالمفكرة، Ctrl+A ثم Ctrl+V ثم حفظ.">
+« Enregistrer dans le site » est le plus simple : vous choisissez le fichier data.js existant, il est remplacé directement. Si cela ne marche pas, « Télécharger » fonctionne toujours — Chrome affiche un avertissement sur les fichiers .js, cliquez simplement sur « Conserver ». En dernier recours, « Copier le contenu » : ouvrez data.js avec le Bloc-notes, Ctrl+A puis Ctrl+V, puis enregistrez.</span>
+      </div>
+
+      <div class="form-actions" style="margin-top:18px;">
+        <button class="btn btn-ghost btn-sm" type="button" id="btnReset" data-ar="إلغاء كل التعديلات غير المنشورة">Annuler toutes mes modifications</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

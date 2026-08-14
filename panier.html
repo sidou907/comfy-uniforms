@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mon panier — COMFY UNIFORMS</title>
+<meta name="description" content="Vérifiez votre panier et envoyez votre commande sur WhatsApp en un clic. Paiement à la livraison partout en Algérie.">
+<meta name="theme-color" content="#0A1F3C">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <img src="assets/img/logo.png" alt="COMFY UNIFORMS" onerror="this.style.display='none'">
+      <span class="logo-text">COMFY UNIFORMS</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html#categories" data-ar="الفئات">Catégories</a>
+      <a href="produits.html" data-ar="المنتجات">Produits</a>
+      <a href="index.html#pourquoi" data-ar="لماذا نحن">Pourquoi nous</a>
+      <a href="index.html#faq" data-ar="الأسئلة">FAQ</a>
+      <a href="index.html#contact" data-ar="اتصل بنا">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button type="button" data-lang-btn="fr">Français</button>
+        <button type="button" data-lang-btn="ar">العربية</button>
+      </div>
+      <a class="cart-link" href="panier.html">
+        <span data-ar="السلة">Panier</span>
+        <span class="cart-count">0</span>
+      </a>
+    </div>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" data-ar-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="breadcrumb">
+    <a href="index.html" data-ar="الرئيسية">Accueil</a>
+    <span>/</span>
+    <span data-ar="السلة">Panier</span>
+  </nav>
+
+  <div class="section-head" style="padding-top:24px; margin-bottom:8px;">
+    <div class="eyebrow" data-ar="طلبي">Ma commande</div>
+    <h2 data-ar="سلة التسوق">Mon panier</h2>
+  </div>
+
+  <!-- Panier vide -->
+  <div id="cartEmpty" class="cart-empty" hidden>
+    <div class="icon">🛒</div>
+    <h2 data-ar="سلتك فارغة">Votre panier est vide</h2>
+    <p data-ar="تصفّح المجموعة وأضف القطع التي تناسبك.">Parcourez la collection et ajoutez les pièces qui vous conviennent.</p>
+    <a class="btn btn-primary" href="produits.html" data-ar="اكتشف المنتجات">Découvrir les produits</a>
+  </div>
+
+  <!-- Panier rempli -->
+  <div class="cart-layout" id="cartLayout" hidden>
+    <div>
+      <div class="cart-items" id="cartItems"></div>
+      <div style="display:flex; justify-content:space-between; gap:16px; margin-top:20px; flex-wrap:wrap;">
+        <a class="btn btn-ghost btn-sm" href="produits.html" data-ar="مواصلة التسوق">← Continuer mes achats</a>
+        <button class="link-danger" type="button" id="clearCart" data-ar="إفراغ السلة">Vider le panier</button>
+      </div>
+    </div>
+
+    <aside class="summary">
+      <h2 data-ar="ملخص الطلب">Récapitulatif</h2>
+
+      <div class="sum-line">
+        <span data-ar="المجموع الفرعي">Sous-total</span>
+        <span class="val" id="sumSubtotal">—</span>
+      </div>
+      <div class="sum-line">
+        <span data-ar="التوصيل">Livraison</span>
+        <span class="val" id="sumDelivery">—</span>
+      </div>
+      <div class="sum-line total">
+        <span data-ar="المجموع">Total</span>
+        <span id="sumTotal">—</span>
+      </div>
+      <p class="sum-note" id="deliveryNote"></p>
+
+      <form class="checkout-form" id="orderForm" novalidate>
+        <div class="form-grid-2">
+          <label class="form-label">
+            <span data-ar="الاسم الكامل *">Nom complet *</span>
+            <input class="field" type="text" name="name" placeholder="Amina Belkacem" data-ar-placeholder="أمينة بلقاسم" required>
+          </label>
+          <label class="form-label">
+            <span data-ar="الهاتف *">Téléphone *</span>
+            <input class="field" type="tel" name="phone" placeholder="0770 00 00 00" data-ar-placeholder="0770 00 00 00" required>
+          </label>
+        </div>
+        <label class="form-label">
+          <span data-ar="الولاية *">Wilaya *</span>
+          <select class="field" name="wilaya" id="wilayaSelect" required></select>
+        </label>
+        <label class="form-label">
+          <span data-ar="العنوان (اختياري)">Adresse (facultatif)</span>
+          <input class="field" type="text" name="address" placeholder="Cité, rue, point de repère…" data-ar-placeholder="الحي، الشارع، نقطة دلالة…">
+        </label>
+        <label class="form-label">
+          <span data-ar="ملاحظة (اختياري)">Note (facultatif)</span>
+          <textarea class="field" name="note" rows="2" placeholder="Broderie, précision de taille…" data-ar-placeholder="تطريز، توضيح المقاس…"></textarea>
+        </label>
+
+        <button class="btn btn-wa btn-block" type="submit">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+          <span data-ar="إرسال الطلب عبر واتساب">Envoyer la commande sur WhatsApp</span>
+        </button>
+
+        <p class="sum-note" style="text-align:center;" data-ar="سيُفتح واتساب وطلبك مكتوب بالكامل — تبقى فقط الضغط على إرسال. الدفع عند الاستلام.">
+          WhatsApp s'ouvre avec la commande déjà rédigée — il ne reste qu'à envoyer. Paiement à la livraison.
+        </p>
+      </form>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">
+        <span class="mark"></span>
+        <b>COMFY UNIFORMS</b>
+      </div>
+      <p data-ar="ملابس طبية وملابس أشعة فاخرة، مصممة ومُوصَّلة إلى كامل التراب الجزائري.">Tenues médicales et radiologiques premium, conçues et livrées partout en Algérie.</p>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="روابط سريعة">Liens rapides</div>
+      <a href="index.html#categories" data-ar="الفئات">Catégories</a>
+      <a href="produits.html" data-ar="المنتجات">Produits</a>
+      <a href="panier.html" data-ar="السلة">Panier</a>
+      <a href="index.html#faq" data-ar="الأسئلة الشائعة">FAQ</a>
+      <a href="index.html#contact" data-ar="اتصل بنا">Contact</a>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="معلومات">Informations</div>
+      <a href="index.html#faq" data-ar="التوصيل والإرجاع">Livraison &amp; retours</a>
+      <a href="index.html#faq" data-ar="دليل المقاسات">Guide des tailles</a>
+      <a href="index.html#contact" data-ar="طلبات الجملة">Commandes en gros</a>
+      <a href="index.html#contact" data-ar="التطريز المخصص">Broderie personnalisée</a>
+    </div>
+    <div class="footer-col">
+      <div class="title" data-ar="تابعنا">Nous suivre</div>
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a data-wa="Bonjour !" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a data-shop-phone href="#"><span data-shop-text="phoneDisplay">0773 74 73 89</span></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 COMFY UNIFORMS — <span data-ar="كل الحقوق محفوظة.">Tous droits réservés.</span></span>
+    <span data-ar="الجزائر · وهران · قسنطينة">Alger · Oran · Constantine</span>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Haut de page" data-ar-label="أعلى الصفحة">↑</button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/panier.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# Fichiers systeme
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Telechargements interrompus du navigateur
+*.crdownload
+Non confirmé*
+
+# Dossiers d'outils
+node_modules/

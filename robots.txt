@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /panier.html
+Disallow: /admin.html
+
+Sitemap: https://comfy-uniforms.pages.dev/sitemap.xml
