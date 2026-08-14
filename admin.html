@@ -39,7 +39,8 @@
   <div class="tabs">
     <button class="tab is-active" type="button" data-tab="produits" data-ar="المنتجات">Produits</button>
     <button class="tab" type="button" data-tab="boutique" data-ar="معلومات المتجر">Ma boutique</button>
-    <button class="tab" type="button" data-tab="publier" data-ar="النشر">Publier</button>
+    <button class="tab" type="button" data-tab="enligne" data-ar="النشر من الهاتف">Publier en ligne</button>
+    <button class="tab" type="button" data-tab="publier" data-ar="النشر يدوياً">Publier à la main</button>
   </div>
 
   <!-- ============ ONGLET PRODUITS ============ -->
@@ -166,6 +167,7 @@
                       </select>
                     </label>
                   </div>
+                  <div class="hint" id="photoInfo" style="margin:6px 0 0; color:var(--accent); font-weight:600;"></div>
                   <div class="filename">
                     <span id="photoPath">assets/img/products/…</span>
                     <button class="icon-btn" type="button" id="copyPath" title="Copier">⧉</button>
@@ -286,6 +288,52 @@
     </div>
   </section>
 
+  <!-- ============ ONGLET PUBLIER EN LIGNE ============ -->
+  <section class="panel" id="panel-enligne">
+    <div class="card" style="max-width:820px;">
+      <h2 data-ar="النشر مباشرة من هذا الجهاز">Publier directement depuis cet appareil</h2>
+      <div class="hint" data-ar="يعمل من الهاتف. يُحفظ الرمز في هذا المتصفح فقط ولا يُرسل إلا إلى GitHub. بعد النشر يتحدّث الموقع وحده خلال دقيقة أو دقيقتين.">Fonctionne depuis un téléphone. Le jeton reste dans ce navigateur et n'est envoyé qu'à GitHub. Après publication, le site se met à jour tout seul en une à deux minutes.</div>
+
+      <div class="notice" id="ghState" style="margin:18px 0;"></div>
+
+      <form id="ghForm" class="form-rows">
+        <div class="row-3">
+          <label class="form-label">
+            <span data-ar="اسم الحساب">Compte GitHub</span>
+            <input class="field" type="text" name="owner" placeholder="sidou907" autocomplete="off">
+          </label>
+          <label class="form-label">
+            <span data-ar="اسم المستودع">Dépôt</span>
+            <input class="field" type="text" name="repo" placeholder="comfy-uniforms" autocomplete="off">
+          </label>
+          <label class="form-label">
+            <span data-ar="الفرع">Branche</span>
+            <input class="field" type="text" name="branch" placeholder="main" autocomplete="off">
+          </label>
+        </div>
+        <label class="form-label">
+          <span data-ar="رمز الوصول (Personal access token)">Jeton d'accès (Personal access token)</span>
+          <input class="field" type="password" name="token" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+        </label>
+        <div class="form-actions">
+          <button class="btn btn-primary btn-sm" type="submit" data-ar="حفظ الإعدادات">Enregistrer les réglages</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="btnGhTest" data-ar="اختبار الاتصال">Tester la connexion</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="btnGhForget" data-ar="حذف الرمز">Oublier le jeton</button>
+        </div>
+      </form>
+
+      <div class="form-actions" style="margin-top:24px;">
+        <button class="btn btn-accent btn-block" type="button" id="btnPublish" disabled data-ar="🚀 انشر على الموقع الآن">🚀 Publier sur le site maintenant</button>
+      </div>
+      <div class="hint" id="ghProgress" style="text-align:center; margin-top:12px; color:var(--accent); font-weight:600;"></div>
+
+      <details class="faq-item" style="margin-top:26px;">
+        <summary><span data-ar="كيف أحصل على الرمز؟ (مرة واحدة)">Comment obtenir le jeton ? (une seule fois)</span><span class="chev">+</span></summary>
+        <ol class="steps" style="margin-top:16px;" id="tokenSteps"></ol>
+      </details>
+    </div>
+  </section>
+
   <!-- ============ ONGLET PUBLIER ============ -->
   <section class="panel" id="panel-publier">
     <div class="card" style="max-width:820px;">
@@ -327,6 +375,7 @@
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/ui.js"></script>
+<script src="assets/js/gh.js"></script>
 <script src="assets/js/admin.js"></script>
 </body>
 </html>

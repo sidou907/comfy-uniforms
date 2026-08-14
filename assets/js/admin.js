@@ -6,6 +6,8 @@
    ========================================================================== */
 
 const DRAFT_KEY = 'cu_admin_v1';
+const PHOTOS_KEY = 'cu_admin_photos_v1';
+const PHOTOS_MAX = 4 * 1024 * 1024; // au-delà, le stockage du navigateur sature
 
 /** Traduction courte pour les textes générés ici. */
 const tx = (fr, ar) => (Lang.isAr() ? ar : fr);
@@ -15,8 +17,9 @@ const state = {
   products: null,
   editingId: null,   // null = création d'un nouveau produit
   form: null,        // produit en cours de saisie
-  photoData: null,   // aperçu local de la photo choisie (dataURL)
-  exported: true     // false dès qu'une modification n'a pas encore été téléchargée
+  photoData: null,   // photo du produit en cours : { dataUrl, base64, bytes }
+  photos: {},        // photos choisies mais pas encore publiées, par identifiant
+  exported: true     // false dès qu'une modification n'a pas encore été enregistrée
 };
 
 /* --------------------------------------------------------------------------
@@ -26,6 +29,11 @@ const state = {
 function deepCopy(o) { return JSON.parse(JSON.stringify(o)); }
 
 function loadDraft() {
+  try {
+    const rawPhotos = localStorage.getItem(PHOTOS_KEY);
+    if (rawPhotos) state.photos = JSON.parse(rawPhotos) || {};
+  } catch (e) { state.photos = {}; }
+
   try {
     const raw = localStorage.getItem(DRAFT_KEY);
     if (raw) {
@@ -40,6 +48,21 @@ function loadDraft() {
   } catch (e) { /* brouillon illisible : on repart du catalogue livré */ }
   state.shop = deepCopy(SHOP);
   state.products = deepCopy(PRODUCTS);
+}
+
+function photosBytes() {
+  return Object.keys(state.photos).reduce(function (n, k) {
+    return n + (state.photos[k].bytes || 0);
+  }, 0);
+}
+
+function savePhotos() {
+  try {
+    localStorage.setItem(PHOTOS_KEY, JSON.stringify(state.photos));
+  } catch (e) {
+    alert(tx('Trop de photos en attente : publiez-les avant d’en ajouter d’autres.',
+             'صور كثيرة في الانتظار: انشرها قبل إضافة غيرها.'));
+  }
 }
 
 function saveDraft() {
@@ -248,7 +271,7 @@ function renderPhoto() {
 
   const box = document.getElementById('photoPreview');
   if (state.photoData) {
-    box.innerHTML = '<img src="' + state.photoData + '" alt="">';
+    box.innerHTML = '<img src="' + state.photoData.dataUrl + '" alt="">';
   } else {
     box.innerHTML = '<img src="' + escapeHtml(path) + '" alt="" ' +
       'onerror="this.hidden=true;this.nextElementSibling.hidden=false">' +
@@ -316,6 +339,8 @@ function newProduct() {
   state.editingId = null;
   state.form = emptyProduct();
   state.photoData = null;
+  const info = document.getElementById('photoInfo');
+  if (info) info.textContent = '';
   document.getElementById('formTitle').textContent = tx('Nouveau produit', 'منتج جديد');
   document.getElementById('formError').hidden = true;
   writeForm();
@@ -328,7 +353,15 @@ function editProduct(id) {
   if (!p) return;
   state.editingId = id;
   state.form = deepCopy(p);
-  state.photoData = null;
+  // Photo deja choisie pour ce produit mais pas encore publiee : on la remontre.
+  state.photoData = state.photos[id] || null;
+  const info = document.getElementById('photoInfo');
+  if (info) {
+    info.textContent = state.photoData
+      ? tx('Photo en attente de publication — ' + formatBytes(state.photoData.bytes),
+           'صورة تنتظر النشر — ' + formatBytes(state.photoData.bytes))
+      : '';
+  }
   document.getElementById('formTitle').textContent = tx('Modifier le produit', 'تعديل المنتج');
   document.getElementById('formError').hidden = true;
   writeForm();
@@ -361,9 +394,24 @@ function saveProduct(e) {
   const clean = deepCopy(f);
   if (state.editingId) {
     const i = state.products.findIndex(p => p.id === state.editingId);
+    // L'identifiant a pu changer : la photo en attente suit le produit.
+    if (state.editingId !== clean.id && state.photos[state.editingId]) {
+      state.photos[clean.id] = state.photos[state.editingId];
+      delete state.photos[state.editingId];
+    }
     state.products[i] = clean;
   } else {
     state.products.push(clean);
+  }
+
+  // Photo choisie pendant la saisie : elle part au prochain « Publier ».
+  if (state.photoData) {
+    state.photos[clean.id] = state.photoData;
+    if (photosBytes() > PHOTOS_MAX) {
+      alert(tx('Beaucoup de photos attendent d’être publiées. Publiez maintenant pour ne rien perdre.',
+               'صور كثيرة تنتظر النشر. انشرها الآن حتى لا تفقدها.'));
+    }
+    savePhotos();
   }
 
   markDirty();
@@ -405,7 +453,7 @@ function renderPreview() {
 
   if (state.photoData) {
     const img = host.querySelector('.shot img');
-    if (img) { img.hidden = false; img.src = state.photoData; }
+    if (img) { img.hidden = false; img.src = state.photoData.dataUrl; }
     const label = host.querySelector('.shot .media-label');
     if (label) label.hidden = true;
   }
@@ -508,6 +556,26 @@ function renderSteps() {
   ];
   document.getElementById('publishSteps').innerHTML =
     steps.map(function (s) { return '<li>' + s + '</li>'; }).join('');
+}
+
+function renderTokenSteps() {
+  const c = GH.get();
+  const repo = (c.owner || 'sidou907') + '/' + (c.repo || 'comfy-uniforms');
+  const steps = Lang.isAr() ? [
+    'افتح <code>github.com/settings/personal-access-tokens/new</code> وسجّل الدخول.',
+    'الاسم: <code>boutique</code> — والمدة: اختر <b>No expiration</b> حتى لا تعيد العملية.',
+    'في <b>Repository access</b> اختر <b>Only select repositories</b> ثم <code>' + repo + '</code>.',
+    'في <b>Permissions ▸ Repository permissions</b> اضبط <b>Contents</b> على <b>Read and write</b>. لا شيء غير ذلك.',
+    'اضغط <b>Generate token</b>، انسخ الرمز، والصقه في الخانة أعلاه ثم احفظ.'
+  ] : [
+    'Ouvrez <code>github.com/settings/personal-access-tokens/new</code> et connectez-vous.',
+    'Nom : <code>boutique</code> — Expiration : choisissez <b>No expiration</b> pour ne pas recommencer.',
+    'Dans <b>Repository access</b> : <b>Only select repositories</b>, puis <code>' + repo + '</code>.',
+    'Dans <b>Permissions ▸ Repository permissions</b> : mettez <b>Contents</b> sur <b>Read and write</b>. Rien d\'autre.',
+    'Cliquez <b>Generate token</b>, copiez-le et collez-le dans le champ ci-dessus, puis enregistrez.'
+  ];
+  const host = document.getElementById('tokenSteps');
+  if (host) host.innerHTML = steps.map(s => '<li>' + s + '</li>').join('');
 }
 
 function renderStats() {
@@ -810,6 +878,134 @@ async function copyFileText() {
 }
 
 /* --------------------------------------------------------------------------
+   Publication en ligne (fonctionne depuis un téléphone)
+   -------------------------------------------------------------------------- */
+
+function renderGhForm() {
+  const el = document.getElementById('ghForm').elements;
+  const c = GH.get();
+  el.owner.value = c.owner || '';
+  el.repo.value = c.repo || '';
+  el.branch.value = c.branch || 'main';
+  el.token.value = c.token ? '••••••••••••••••' : '';
+  renderTokenSteps();
+  renderGhState();
+}
+
+function renderGhState() {
+  const box = document.getElementById('ghState');
+  const btn = document.getElementById('btnPublish');
+  const ready = GH.isReady();
+
+  btn.disabled = !ready;
+  const nb = Object.keys(state.photos).length;
+  const details = state.products.length + ' ' + tx('produits', 'منتج') +
+    (nb ? ' · ' + nb + ' ' + tx('photo(s) à envoyer', 'صورة للإرسال') +
+          ' (' + formatBytes(photosBytes()) + ')' : '');
+
+  box.innerHTML = ready
+    ? '<b style="color:var(--accent)">' + tx('Connecté', 'متصل') + '</b> — ' + escapeHtml(details)
+    : tx('Renseignez les champs ci-dessous pour publier depuis cet appareil.',
+         'أدخل المعلومات أدناه للنشر من هذا الجهاز.');
+}
+
+function ghProgress(msg) {
+  document.getElementById('ghProgress').textContent = msg || '';
+}
+
+async function testGh() {
+  ghProgress(tx('Vérification…', 'جارٍ التحقق…'));
+  try {
+    const info = await GH.test();
+    ghProgress('');
+    alert(tx('Connexion réussie : ' + info.full_name + ' (branche ' + info.branch + ')',
+             'نجح الاتصال: ' + info.full_name + ' (الفرع ' + info.branch + ')'));
+  } catch (err) {
+    ghProgress('');
+    alert(tx('Échec : ', 'فشل: ') + err.message);
+  }
+}
+
+async function publishOnline() {
+  if (!GH.isReady()) return;
+
+  const text = generateChecked();
+  if (!text) return;
+
+  const files = [{ path: 'assets/js/data.js', text: text }];
+  const ids = Object.keys(state.photos);
+  ids.forEach(function (id) {
+    const p = state.products.find(o => o.id === id);
+    if (p) files.push({ path: p.img, base64: state.photos[id].base64 });
+  });
+
+  const btn = document.getElementById('btnPublish');
+  btn.disabled = true;
+
+  try {
+    const sha = await GH.commit(
+      files,
+      'Catalogue : ' + state.products.length + ' produits' +
+        (ids.length ? ', ' + ids.length + ' photo(s)' : ''),
+      ghProgress
+    );
+
+    // Publié : les photos ne sont plus en attente.
+    state.photos = {};
+    savePhotos();
+    markExported();
+
+    ghProgress('');
+    renderGhState();
+    renderStats();
+    alert(tx(
+      'Publié ✓ (' + sha + ')\n\nLe site se met à jour tout seul dans une à deux minutes.',
+      'تم النشر ✓ (' + sha + ')\n\nسيتحدّث الموقع وحده خلال دقيقة أو دقيقتين.'
+    ));
+  } catch (err) {
+    ghProgress('');
+    const msg = err.status === 401 ? tx('Jeton invalide ou expiré.', 'الرمز غير صالح أو منتهي.')
+      : err.status === 404 ? tx('Dépôt ou branche introuvable — vérifiez les noms.',
+                                'المستودع أو الفرع غير موجود — تحقق من الأسماء.')
+      : err.message;
+    alert(tx('Publication impossible : ', 'تعذّر النشر: ') + msg);
+  } finally {
+    btn.disabled = !GH.isReady();
+  }
+}
+
+function bindGh() {
+  const form = document.getElementById('ghForm');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const el = form.elements;
+    const next = {
+      owner: el.owner.value.trim(),
+      repo: el.repo.value.trim(),
+      branch: el.branch.value.trim() || 'main'
+    };
+    // Champ laissé masqué : on garde le jeton déjà enregistré.
+    const typed = el.token.value.trim();
+    if (typed && typed.indexOf('•') === -1) next.token = typed;
+
+    GH.save(next);
+    renderGhForm();
+    toast(tx('Réglages enregistrés ✓', 'تم حفظ الإعدادات ✓'));
+  });
+
+  document.getElementById('btnGhTest').addEventListener('click', testGh);
+  document.getElementById('btnPublish').addEventListener('click', publishOnline);
+
+  document.getElementById('btnGhForget').addEventListener('click', function () {
+    if (!confirm(tx('Oublier le jeton sur cet appareil ?', 'حذف الرمز من هذا الجهاز؟'))) return;
+    GH.forget();
+    renderGhForm();
+    toast(tx('Jeton oublié.', 'تم حذف الرمز.'));
+  });
+}
+
+/* --------------------------------------------------------------------------
    Onglets et démarrage
    -------------------------------------------------------------------------- */
 
@@ -821,6 +1017,7 @@ function bindTabs() {
       tab.classList.add('is-active');
       document.getElementById('panel-' + tab.dataset.tab).classList.add('is-active');
       if (tab.dataset.tab === 'publier') renderStats();
+      if (tab.dataset.tab === 'enligne') renderGhState();
     });
   });
 }
@@ -909,19 +1106,31 @@ function bindForm() {
     renderPreview();
   });
 
-  // Photo : aperçu local uniquement, le fichier reste à copier à la main
-  document.getElementById('photoFile').addEventListener('change', function () {
+  // Photo : réduite tout de suite, puis publiée avec le produit.
+  document.getElementById('photoFile').addEventListener('change', async function () {
     const file = this.files && this.files[0];
     if (!file) return;
-    const ext = extOf(file.name);
-    document.getElementById('photoExt').value = ext;
-    const reader = new FileReader();
-    reader.onload = function () {
-      state.photoData = reader.result;
+
+    const info = document.getElementById('photoInfo');
+    info.textContent = tx('Réduction de la photo…', 'جارٍ تصغير الصورة…');
+
+    try {
+      const img = await compressImage(file);
+      // La photo est réencodée en JPEG : l'extension doit suivre.
+      document.getElementById('photoExt').value = 'jpg';
+      state.photoData = { dataUrl: img.dataUrl, base64: img.base64, bytes: img.bytes };
+      info.textContent = tx(
+        'Photo prête : ' + img.width + '×' + img.height + ' — ' + formatBytes(img.bytes) +
+          ' (au lieu de ' + formatBytes(file.size) + ')',
+        'الصورة جاهزة: ' + img.width + '×' + img.height + ' — ' + formatBytes(img.bytes) +
+          ' (بدل ' + formatBytes(file.size) + ')'
+      );
       renderPhoto();
       renderPreview();
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      info.textContent = '';
+      alert(err.message);
+    }
   });
 
   document.getElementById('copyPath').addEventListener('click', function () {
@@ -959,6 +1168,7 @@ function renderAll() {
   renderList();
   refreshForm();
   renderShopForm();
+  renderGhForm();
   renderStats();
 }
 
@@ -971,8 +1181,10 @@ document.addEventListener('DOMContentLoaded', function () {
   bindForm();
   bindPreview();
   bindGlobal();
+  bindGh();
   newProduct();
   renderShopForm();
+  renderGhForm();
   renderStats();
 });
 
