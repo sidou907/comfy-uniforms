@@ -1,7 +1,7 @@
 ﻿/* ==========================================================================
    Données du site — fichier généré depuis admin.html.
    Vous pouvez aussi le modifier à la main : la structure reste la même.
-   Dernière mise à jour : 29/07/2026 01:25:41
+   Dernière mise à jour : 30/08/2026 21:45:00
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -63,22 +63,22 @@ const SIZES_ACC = ['Taille unique'];
    -------------------------------------------------------------------------- */
 const PRODUCTS = [
   {
-    id: 'tenues-medicale',
-    name: 'tenues médicale',
-    name_ar: 'لباس طبي',
-    cat: 'homme',
-    price: 7000, oldPrice: 8000,
+    id: 'tenue-medicale',
+    name: 'tenue médicale',
+    name_ar: 'بدلة طبية',
+    cat: 'radiologie',
+    price: 4200, oldPrice: 4500,
     rating: 5, reviews: 0,
     tag: null, tag_ar: null,
     featured: false,
-    colors: [C.navy],
+    colors: [C.ciel, { hex: '#060A09', name: 'NOIRE', name_ar: 'NOIRE' }],
     sizes: SIZES_STD,
-    img: 'assets/img/products/tenues-medicale.jpg',
-    desc: '',
-    desc_ar: '',
-    fabric: '',
-    fabric_ar: '',
-    care: '',
+    img: 'assets/img/products/tenue-medicale.jpg',
+    desc: 'Tenue médicale confortable et pratique, composée d\'une tunique à manches courtes et d\'un pantalon assorti. Coupe droite avec plusieurs poches fonctionnelles, idéale pour les professionnels de la santé.',
+    desc_ar: 'زي طبي مريح وعملي، يتكون من سترة بأكمام قصيرة وبنطال متناسق. تصميم مستقيم مع عدة جيوب عملية، مثالي للعاملين في المجال الصحي.',
+    fabric: 'Polycoton 65 % polyester / 35 % coton, 190 g/m²',
+    fabric_ar: 'بوليستر/قطن 65% بوليستر و35% قطن، 190 غ/م²',
+    care: 'Lavable en machine à 60 °C. Repassage à température moyenne',
     care_ar: ''
   }
 ];
